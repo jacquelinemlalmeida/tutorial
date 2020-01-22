@@ -6,6 +6,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script type="text/javascript">
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+    </script>
   </head>
 
   <body>
@@ -15,6 +19,20 @@
       </div>
       <div class="title">
         <h1><%= @page_title %></h1>
+      </div>
+      <aside>
+        <%= form_tag store_index_path, class: 'locale' do %>
+          <%=select_tag 'set_locale', options_for_select(LANGUAGES, I18n.locale.to_s), onchange: 'this.form.submit()' %>
+          <%= submit_tag 'submit', id: 'submit_locale_change' %>
+        <% end %>
+      </aside>
+
+      <div class="translation">
+        <ul>
+          <li><a href="/en"><%= image_tag 'england.png' %></a></li>
+          <li><a href="/es"><%= image_tag 'spain.jpeg'   %></a></li>
+          <li><a href="/pt-BR"><%= image_tag 'brazil.png'  %></a></li>
+        </ul>
       </div>
     </header>
     <section class="content">

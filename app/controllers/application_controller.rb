@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :authorize
   before_action :set_i18n_locale_from_params
+  before_action :authorize
   protect_from_forgery with: :exception
 
   protected
@@ -20,6 +20,6 @@ class ApplicationController < ActionController::Base
           logger.error flash.now[:notice]
         end
       end
-    end 
+    end
 
 end

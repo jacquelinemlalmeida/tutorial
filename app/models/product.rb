@@ -1,5 +1,4 @@
  class Product < ApplicationRecord
-
    has_many :line_items
    has_many :orders, through: :line_items
    before_destroy :ensure_not_referenced_by_any_line_item
@@ -12,6 +11,17 @@
      message: 'must be a URL for GIF, JPG, or PNG image.'
    }
 
+   def price_by_locale(price)
+     case I18n.locale.to_s
+     when 'es'
+       return price/=4.65
+     when 'en'
+       return price/=4.21
+     else
+       price
+     end
+   end
+
    private
 
    #ensure that there are no line items referencing this products
@@ -21,4 +31,7 @@
        throw :abort
      end
    end
+
+
+
 end
