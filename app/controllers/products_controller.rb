@@ -1,11 +1,24 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
+  include CurrentCurrency
+  before_action :set_currency
   # GET /products
   # GET /products.json
-  def index
+  def index  
     @products = Product.all
+    @products.where(locale: I18n.local.to_s).update_all(price: price/set_currency)
   end
+
+  def who_bought
+    @product = Product.find(params[:id])
+    @latest_order = @product.orders.order(:updated_at).last
+    if stale?(@latest_order)
+      respond_to do |format|
+        format.atom
+      end
+    end
+  end
+
 
   # GET /products/1
   # GET /products/1.json
@@ -24,8 +37,6 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -42,11 +53,14 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html {redirect_to @product, notice: 'Product was succesfully updated.' }
         format.json { render :show, status: :ok, location: @product }
+
+        @products = Product.all
+        ActionCable.server.broadcast 'products', html: render_to_string('store/index', layout: false)
       else
         format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.json{ render json: @product.errors , status: :unprocessable_entity }
       end
     end
   end

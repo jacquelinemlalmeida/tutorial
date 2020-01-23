@@ -22,7 +22,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal ["must be greater than ot equal to 0.01"], product.errors[:price]
 
     product.price = 0
-    assert product.invalid?
+    assert   product.invalid?
     assert_equal ["must be greater than ot equal to 0.01"], product.errors[:price]
 
     product.price = 1
