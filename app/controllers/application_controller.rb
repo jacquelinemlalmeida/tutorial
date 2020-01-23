@@ -1,7 +1,26 @@
+require 'rest-client'
+require 'json'
+
 class ApplicationController < ActionController::Base
   before_action :set_i18n_locale_from_params
   before_action :authorize
   protect_from_forgery with: :exception
+  before_action :get_currencies_from_api
+
+  def get_currencies_from_api
+    url = 'https://economia.awesomeapi.com.br/all/'
+    q = 'USD-BRL,EUR-BRL'
+    resp = JSON.parse(RestClient.get "#{url}")
+    currency_map = {
+        :en => resp['USD']['high'].to_s,
+        :es => resp['EUR']['high'].to_s
+    }
+    currency_map.each do |currency_name, currency|
+      Currency.where(locale: currency_name).update_all(currency:  currency)
+    end
+
+
+  end
 
   protected
 

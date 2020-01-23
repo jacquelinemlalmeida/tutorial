@@ -1,10 +1,12 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
+  include CurrentCurrency
+  before_action :set_currency
   # GET /products
   # GET /products.json
-  def index
+  def index  
     @products = Product.all
+    @products.where(locale: I18n.local.to_s).update_all(price: price/set_currency)
   end
 
   def who_bought
@@ -15,7 +17,7 @@ class ProductsController < ApplicationController
         format.atom
       end
     end
-  end  
+  end
 
 
   # GET /products/1
@@ -35,8 +37,6 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
