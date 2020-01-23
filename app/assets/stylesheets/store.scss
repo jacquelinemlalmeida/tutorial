@@ -1,0 +1,48 @@
+.store {
+  width: 100%;
+  ul.catalog {
+    border-top: solid 0.250em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 1em;
+      margin: 0;
+      border-bottom: solid thin #ddd;
+
+      &::after {
+        clear: both;
+        content: " ";
+        display: block;
+      }
+
+      img {
+        float: left;
+        padding: 1em;
+        margin-right: 1em;
+        margin-bottom: 1em;
+        box-shadow: 0.176em 0.176em 0.354em 0px rgba(0,0,0,0.75);
+        max-height: 150px;
+      }
+      .price {
+        font-size: 1.414em;
+      }
+    }
+  }
+
+  form, div {
+    display: inline;
+  }
+  input[type="submit"] {
+    background-color: #5167b5;
+    border-radius: 0.354em;
+    border: solid thin #111944;
+    color: white;
+    font-size: 1em;
+    padding: 0.354em 1em;
+  }
+  input[type="submit"]:hover{
+    background-color: #111944;
+  }
+}
