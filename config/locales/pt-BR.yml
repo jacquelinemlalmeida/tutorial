@@ -1,0 +1,75 @@
+pt-BR:
+
+
+  activerecord:
+    models:
+      order: "pedido"
+    attributes:
+      address: "Endereco"
+      name: "Nome"
+      email: "E-mail"
+      pay_type: "Forma de pagamento"
+    errors:
+      messages:
+        inclusion: "Nao esta incluso na lista"
+        blank: "Nao pode ficar em branco"
+
+  errors:
+    template:
+      body: "Ha problemas com os seguintes campos:"
+      header:
+        one: "1 erro impediu que este %{model} fosse armazenado"
+        other: "%{count} erros impediram que este %{model} fosse armazenado"
+
+
+  layouts:
+    application:
+      title: "Book Store"
+      home: "Home"
+      questions: "Perguntas"
+      news: "Novidades"
+      contact: "Contato"
+
+  store:
+    index:
+      title_html: "Seu catalogo]"
+      add_html: "Adicionar ao Carrinho"
+
+  carts:
+    cart:
+      title: "Seu Carrinho"
+      empty: "Esvaziar Carrinho"
+      checkout: "Comprar"
+      confirm_delete_cart: "Voce tem certeza?"
+
+  orders:
+    new:
+      legend: "Por favor, insira seus dados"
+    form:
+      name: "Nome"
+      address_html: "Endereco"
+      email: "E-mail"
+      pay_method: "Forma de pagamento"
+      pay_prompt_html: "Seleccione um meio de pagamento"
+      submit: "Realizar Pedido"
+      pay_types:
+        check: "Cheque"
+        credit_card: "Cartao de Credito"
+        purchase_order: "Ordem de Compra"
+      pay_type:
+        routing_number: "# de Envio"
+        account_number: "# de Conta"
+        cc_number: "Numero do cartao"
+        expiration_date: "Validade"
+        po_number: "Numero da ordem de compra"
+    create:
+      thanks: "A BookStore agradece a sua compra."    
+
+  number:
+    currency:
+      format:
+        unit: "R$"
+        precision: 2
+        separator: "."
+        delimiter: ","
+        format: "%u%n"
